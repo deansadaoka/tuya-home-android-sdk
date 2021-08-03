@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.tuya.smart.android.common.utils.ValidatorUtil;
 import com.tuya.smart.android.demo.R;
 import com.tuya.smart.android.demo.base.activity.BaseActivity;
+import com.tuya.smart.android.demo.base.utils.ActivityUtils;
 import com.tuya.smart.android.demo.login.presenter.LoginPresenter;
 import com.tuya.smart.android.demo.base.utils.ProgressUtil;
 import com.tuya.smart.android.demo.base.utils.ToastUtil;

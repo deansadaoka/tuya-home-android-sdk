@@ -287,6 +287,11 @@
     <style name="Splash.Theme" parent="Default_Public_Theme">
         <item name="android:windowBackground">@drawable/ty_pre</item>
     </style>
+
+    <style name="Launch.Theme" parent="Default_Public_Theme">
+        <item name="android:windowBackground">@drawable/app_launch_background</item>
+    </style>
+
     <!-- 分割线1px -->
     <style name="TY_SingleLine_Normal">
         <item name="android:layout_height">1px</item>

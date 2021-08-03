@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/app_bg_color"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/TED_Red"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/action_bar_layout"
-        layout="@layout/toolbar_top_view"/>
+        layout="@layout/toolbar_top_view" />
 
     <!--国家/地区-->
     <LinearLayout
@@ -15,10 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mg_50"
         android:layout_below="@id/action_bar_layout"
-        android:layout_marginBottom="@dimen/mg_10"
         android:layout_marginLeft="@dimen/mg_15"
-        android:layout_marginRight="@dimen/mg_15"
         android:layout_marginTop="@dimen/mg_20"
+        android:layout_marginRight="@dimen/mg_15"
+        android:layout_marginBottom="@dimen/mg_10"
         android:background="@drawable/bg_white_round"
         android:orientation="horizontal">
 
@@ -30,20 +30,20 @@
             android:padding="@dimen/mg_15"
             android:text="@string/login_choose_country"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/ts_15"/>
+            android:textSize="@dimen/ts_15" />
 
         <TextView
             android:id="@+id/country_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawablePadding="@dimen/mg_10"
             android:drawableRight="@drawable/arrow_more"
+            android:drawablePadding="@dimen/mg_10"
             android:ellipsize="marquee"
             android:gravity="center_vertical|right"
             android:paddingRight="@dimen/mg_15"
             android:singleLine="true"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/ts_15"/>
+            android:textSize="@dimen/ts_15" />
 
     </LinearLayout>
 
@@ -63,7 +63,7 @@
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_hint_color"
         android:textCursorDrawable="@null"
-        android:textSize="@dimen/phone_button_text_size"/>
+        android:textSize="@dimen/phone_button_text_size" />
 
     <!--密码-->
     <RelativeLayout
@@ -72,8 +72,8 @@
         android:layout_height="44dp"
         android:layout_below="@+id/user_name"
         android:layout_marginLeft="@dimen/mg_15"
-        android:layout_marginRight="@dimen/mg_15"
         android:layout_marginTop="@dimen/mg_10"
+        android:layout_marginRight="@dimen/mg_15"
         android:background="@drawable/bg_white_round">
 
         <EditText
@@ -86,7 +86,7 @@
             android:imeOptions="actionDone"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_hint_color"
-            android:textSize="@dimen/phone_button_text_size"/>
+            android:textSize="@dimen/phone_button_text_size" />
 
         <ImageButton
             android:id="@+id/password_switch"
@@ -99,7 +99,7 @@
             android:paddingLeft="@dimen/mg_5"
             android:paddingRight="@dimen/mg_5"
             android:scaleType="centerInside"
-            android:src="@drawable/ty_password_on"/>
+            android:src="@drawable/ty_password_on" />
 
     </RelativeLayout>
 
@@ -111,10 +111,10 @@
         android:layout_height="@dimen/phone_button_height"
         android:layout_below="@id/rl_password"
         android:layout_marginLeft="@dimen/phone_button_margin_left"
-        android:layout_marginRight="@dimen/phone_button_margin_right"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="@dimen/phone_button_margin_right"
         android:gravity="center"
-        android:text="@string/login"/>
+        android:text="@string/login" />
 
     <!--选项-->
     <RelativeLayout
@@ -123,8 +123,8 @@
         android:layout_height="@dimen/mg_20"
         android:layout_below="@id/login_submit"
         android:layout_marginLeft="@dimen/mg_18"
-        android:layout_marginRight="@dimen/mg_18"
-        android:layout_marginTop="@dimen/mg_16">
+        android:layout_marginTop="@dimen/mg_16"
+        android:layout_marginRight="@dimen/mg_18">
 
         <TextView
             android:id="@+id/option_validate_code"
@@ -133,7 +133,7 @@
             android:layout_alignParentLeft="true"
             android:text="@string/ty_login_sms_confirm"
             android:textColor="@color/text_gray2orange"
-            android:textSize="@dimen/ts_14"/>
+            android:textSize="@dimen/ts_14" />
 
         <TextView
             android:id="@+id/option_forget_password"
@@ -142,17 +142,18 @@
             android:layout_alignParentRight="true"
             android:text="@string/ty_login_forget_keyword"
             android:textColor="@color/text_gray2orange"
-            android:textSize="@dimen/ts_14"/>
+            android:textSize="@dimen/ts_14" />
 
     </RelativeLayout>
+
     <Button
         android:id="@+id/bnt_qrcode_login"
-        android:layout_below="@+id/login_sms"
-        android:layout_marginTop="100dp"
+        style="@style/Button.Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Button.Normal"
+        android:layout_below="@+id/login_sms"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/login_qrcode"/>
+        android:text="@string/login_qrcode" />
 
 </RelativeLayout>

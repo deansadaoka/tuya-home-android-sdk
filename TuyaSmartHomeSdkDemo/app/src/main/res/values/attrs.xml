@@ -191,6 +191,8 @@
     <attr name="app_bg_color" format="color"/>
     <attr name="fragment_bg_color" format="color"/>
 
+    <attr name="TED_bg_color_red" format="color"/>
+
     <attr name="list_primary_color" format="color"/>
     <attr name="list_sub_color" format="color"/>
     <attr name="list_secondary_color" format="color"/>

@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,7 +52,6 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         initTab();
         mHomePresenter.showTab(HomePresenter.TAB_MY_DEVICE);
         initViewPager();
-
     }
 
     @Override
