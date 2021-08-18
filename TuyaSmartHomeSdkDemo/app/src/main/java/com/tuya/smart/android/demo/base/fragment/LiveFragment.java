@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tuya.smart.android.common.utils.NetworkUtil;
 import com.tuya.smart.android.demo.R;
+import com.tuya.smart.android.demo.base.presenter.DeviceListFragmentPresenter;
 import com.tuya.smart.android.demo.base.presenter.SceneListPresenter;
 import com.tuya.smart.android.demo.scene.adapter.SmartAdapter;
 import com.tuya.smart.android.demo.scene.view.ISceneListFragmentView;
@@ -44,6 +45,8 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
     private RecyclerView mRcv_scene_list;
     private RecyclerView mRcv_auto_list;
 
+    private DeviceListFragmentPresenter mDeviceListFragmentPresenter;
+
 
     public static Fragment newInstance() {
         if (mSceneFragment == null) {
@@ -71,8 +74,7 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //initPresenter();
-        //mPresenter.getSceneList();
+        mDeviceListFragmentPresenter.getDataFromServer();
     }
 
     private void initPresenter() {
@@ -86,7 +88,7 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.action_add_system:
-
+                        mDeviceListFragmentPresenter.addDevice();
                         break;
                     case R.id.action_switch_system:
                         break;

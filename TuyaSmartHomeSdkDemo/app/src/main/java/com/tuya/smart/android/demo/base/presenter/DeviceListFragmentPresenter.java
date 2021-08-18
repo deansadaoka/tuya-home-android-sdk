@@ -22,6 +22,7 @@ import com.tuya.smart.android.demo.base.utils.ProgressUtil;
 import com.tuya.smart.android.demo.base.utils.ToastUtil;
 import com.tuya.smart.android.demo.base.view.IDeviceListFragmentView;
 import com.tuya.smart.android.demo.camera.CameraPanelActivity;
+import com.tuya.smart.android.demo.config.AddDeviceTipActivity;
 import com.tuya.smart.android.demo.config.AddDeviceTypeActivity;
 import com.tuya.smart.android.demo.config.CommonConfig;
 import com.tuya.smart.android.demo.device.CommonDeviceDebugActivity;
@@ -228,7 +229,8 @@ public class DeviceListFragmentPresenter extends BasePresenter implements NetWor
     }
 
     public void gotoAddDevice() {
-        ActivityUtils.gotoActivity(mActivity, AddDeviceTypeActivity.class, ActivityUtils.ANIMATE_SLIDE_TOP_FROM_BOTTOM, false);
+        //ActivityUtils.gotoActivity(mActivity, AddDeviceTypeActivity.class, ActivityUtils.ANIMATE_SLIDE_TOP_FROM_BOTTOM, false);
+        ActivityUtils.gotoActivity(mActivity, AddDeviceTipActivity.class, ActivityUtils.ANIMATE_SLIDE_TOP_FROM_BOTTOM, false);
     }
 
     //添加设备
