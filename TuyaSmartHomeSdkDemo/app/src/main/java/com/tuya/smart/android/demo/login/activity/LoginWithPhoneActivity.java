@@ -51,7 +51,7 @@ public class LoginWithPhoneActivity extends BaseActivity implements TextWatcher,
     }
 
     protected void initTitle() {
-        setTitle(getString(R.string.ty_login_sms));
+        //setTitle(getString(R.string.ty_login_sms));
         setDisplayHomeAsUpEnabled();
     }
 

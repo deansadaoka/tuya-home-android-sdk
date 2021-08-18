@@ -23,8 +23,9 @@ public abstract class BaseFragment extends Fragment {
             if (mToolBar != null) {
                 TypedArray a = getActivity().obtainStyledAttributes(new int[]{
                         R.attr.status_font_color});
-                int titleColor = a.getInt(0, Color.WHITE);
+                int titleColor = a.getInt(0, Color.BLACK);
                 mToolBar.setTitleTextColor(titleColor);
+                mToolBar.setBackgroundColor(Color.WHITE);
             }
         }
     }

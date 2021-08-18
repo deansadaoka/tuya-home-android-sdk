@@ -36,6 +36,9 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     private ImageView mIvMyDevice;
     private ImageView mIvHomeCenter;
 
+    protected TextView mTvMore;
+    private ImageView mIvMore;
+
     public ViewPager mFragmentContainer;
     private int mFuncBarTextNormalColor = Color.BLACK;
     private int mFuncBarTextSelectColor = Color.RED;
@@ -61,7 +64,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     }
 
     private void initViewPager() {
-        mFragmentContainer.setOffscreenPageLimit(2);
+        mFragmentContainer.setOffscreenPageLimit(3);
         mFragmentContainer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -88,14 +91,14 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         mTvMyDevice = (TextView) findViewById(R.id.tv_home_my_device);
         mTvMyDevice.setOnClickListener(mClickListener);
         mIvMyDevice = (ImageView) findViewById(R.id.iv_my_device);
-        mIvMyDevice.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ty_mydevice));
+        mIvMyDevice.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ic_baseline_play_circle_outline_24));
         mIvMyDevice.setOnClickListener(mClickListener);
         mIvMyDevice.setColorFilter(mFuncBarTextSelectColor);
 
         mTvHomeScene = findViewById(R.id.tv_home_my_scene);
         mTvHomeScene.setOnClickListener(mClickListener);
         mIvHomeScene = findViewById(R.id.iv_my_scene);
-        mIvHomeScene.setImageResource(R.drawable.my_scene);
+        mIvHomeScene.setImageResource(R.drawable.ic_outline_insert_chart_24);
         mIvHomeScene.setOnClickListener(mClickListener);
         mIvHomeScene.setColorFilter(mFuncBarTextNormalColor);
 
@@ -105,6 +108,13 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         mIvHomeCenter.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ty_home_center));
         mIvHomeCenter.setOnClickListener(mClickListener);
         mIvHomeCenter.setColorFilter(mFuncBarTextNormalColor);
+
+        mTvMore = (TextView) findViewById(R.id.tv_more_tab);
+        mTvMore.setOnClickListener(mClickListener);
+        mIvMore = (ImageView) findViewById(R.id.iv_more_tab);
+        mIvMore.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ic_outline_info_24));
+        mIvMore.setOnClickListener(mClickListener);
+        mIvMore.setColorFilter(mFuncBarTextNormalColor);
 
     }
 
@@ -117,6 +127,8 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                 mHomePresenter.showPersonalCenterPage();
             } else if (v.getId() == R.id.tv_home_my_scene || v.getId() == R.id.iv_my_scene) {
                 mHomePresenter.showScene();
+            } else if (v.getId() == R.id.tv_more_tab || v.getId() == R.id.iv_more_tab) {
+                mHomePresenter.showMore();
             }
         }
     };
@@ -176,7 +188,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             case HomePresenter.TAB_MY_DEVICE:
                 mTvMyDevice.setTextColor(mFuncBarTextSelectColor);
                 mIvMyDevice.setColorFilter(mFuncBarTextSelectColor);
-                mIvMyDevice.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ty_mydevice_selected));
+                mIvMyDevice.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ic_baseline_play_circle_filled_24));
                 mFragmentContainer.setCurrentItem(idToPosition(id), true);
                 break;
             case HomePresenter.TAB_PERSONAL_CENTER:
@@ -188,7 +200,13 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             case HomePresenter.TAB_SCENE:
                 mTvHomeScene.setTextColor(mFuncBarTextSelectColor);
                 mIvHomeScene.setColorFilter(mFuncBarTextSelectColor);
-                mIvHomeScene.setImageResource(R.drawable.my_scene);
+                mIvHomeScene.setImageResource(R.drawable.ic_baseline_insert_chart_24);
+                mFragmentContainer.setCurrentItem(idToPosition(id), true);
+                break;
+            case HomePresenter.TAB_MORE:
+                mTvMore.setTextColor(mFuncBarTextSelectColor);
+                mIvMore.setColorFilter(mFuncBarTextSelectColor);
+                mIvMore.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ic_baseline_info_24));
                 mFragmentContainer.setCurrentItem(idToPosition(id), true);
                 break;
         }
@@ -200,7 +218,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             case HomePresenter.TAB_MY_DEVICE:
                 mTvMyDevice.setTextColor(mFuncBarTextNormalColor);
                 mIvMyDevice.setColorFilter(mFuncBarTextNormalColor);
-                mIvMyDevice.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ty_mydevice));
+                mIvMyDevice.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ic_baseline_play_circle_outline_24));
                 break;
             case HomePresenter.TAB_PERSONAL_CENTER:
                 mTvHomeCenter.setTextColor(mFuncBarTextNormalColor);
@@ -210,7 +228,12 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             case HomePresenter.TAB_SCENE:
                 mTvHomeScene.setTextColor(mFuncBarTextNormalColor);
                 mIvHomeScene.setColorFilter(mFuncBarTextNormalColor);
-                mIvHomeScene.setImageResource(R.drawable.my_scene);
+                mIvHomeScene.setImageResource(R.drawable.ic_outline_insert_chart_24);
+                break;
+            case HomePresenter.TAB_MORE:
+                mTvMore.setTextColor(mFuncBarTextNormalColor);
+                mIvMore.setColorFilter(mFuncBarTextNormalColor);
+                mIvMore.setImageDrawable(VectorDrawable.getDrawable(TuyaSdk.getApplication(), R.drawable.ic_outline_info_24));
                 break;
         }
     }
@@ -252,10 +275,12 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         switch (pos) {
             case 0:
                 return HomePresenter.TAB_MY_DEVICE;
-            case 1:
+            case 3:
                 return HomePresenter.TAB_PERSONAL_CENTER;
-            case 2:
+            case 1:
                 return HomePresenter.TAB_SCENE;
+            case 2:
+                return HomePresenter.TAB_MORE;
 
         }
 
@@ -268,8 +293,10 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             case HomePresenter.TAB_MY_DEVICE:
                 return 0;
             case HomePresenter.TAB_PERSONAL_CENTER:
-                return 1;
+                return 3;
             case HomePresenter.TAB_SCENE:
+                return 1;
+            case HomePresenter.TAB_MORE:
                 return 2;
 
         }

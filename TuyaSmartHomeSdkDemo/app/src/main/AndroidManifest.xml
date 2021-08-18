@@ -43,6 +43,9 @@
         <meta-data
             android:name="TUYA_SMART_SECRET"
             android:value="9ppf57rv5c9ecwrj39jfn3xt7wfs9med" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".base.activity.SplashActivity"

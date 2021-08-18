@@ -45,7 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
                 android:gravity="center"
-                android:text="@string/home_my_device"
+                android:text="@string/home_live_tab"
                 android:textColor="?attr/list_secondary_color"
                 android:textSize="@dimen/ts_10"/>
         </RelativeLayout>
@@ -70,10 +70,39 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
                 android:gravity="center"
-                android:text="@string/home_scene"
+                android:text="@string/home_history_tab"
                 android:textColor="?attr/list_secondary_color"
                 android:textSize="@dimen/ts_10"/>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_more_tab"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_more_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/iv_more_tab"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@string/home_more_tab"
+                android:textColor="?attr/list_secondary_color"
+                android:textSize="@dimen/ts_10"/>
+
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -96,7 +125,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
                 android:gravity="center"
-                android:text="@string/home_personal_center"
+                android:text="@string/personal_center"
                 android:textColor="?attr/list_secondary_color"
                 android:textSize="@dimen/ts_10"/>
 

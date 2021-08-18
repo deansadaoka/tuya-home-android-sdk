@@ -3,6 +3,7 @@ package com.tuya.smart.android.demo.base.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -22,6 +23,9 @@ import com.tuya.smart.home.sdk.TuyaHomeSdk;
  */
 public class SplashActivity extends Activity {
 
+    private final String SHARED_PREFERENCES_DATA_FILE = "autologin";
+    private final String SHARED_PREFERENCES_DATA_KEY_AUTO_LOGIN = "auto-login";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +39,7 @@ public class SplashActivity extends Activity {
     }
 
     public void gotoLogin() {
-        if (TuyaHomeSdk.getUserInstance().isLogin()) {//已登录，跳主页
+        if (TuyaHomeSdk.getUserInstance().isLogin() && autoLoginOn()) {//已登录，跳主页
             LoginHelper.afterLogin();
             ActivityUtils.gotoHomeActivity(this);
         } else {
@@ -69,6 +73,22 @@ public class SplashActivity extends Activity {
             e1.printStackTrace();
         }
         return "";
+    }
+
+    private boolean autoLoginOn() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_DATA_FILE, MODE_PRIVATE);
+
+        if (sharedPreferences.contains(SHARED_PREFERENCES_DATA_KEY_AUTO_LOGIN)) {
+            String login_string = sharedPreferences.getString(SHARED_PREFERENCES_DATA_KEY_AUTO_LOGIN, "false");
+            if (login_string.equals("false")) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

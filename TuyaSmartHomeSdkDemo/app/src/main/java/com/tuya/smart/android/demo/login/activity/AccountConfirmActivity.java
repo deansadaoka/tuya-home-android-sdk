@@ -96,19 +96,19 @@ public class AccountConfirmActivity extends BaseActivity implements TextWatcher,
 
 
     private void initTitle() {
-        switch (mMode) {
-            case MODE_CHANGE_PASSWORD:
-                setTitle(R.string.ty_login_modify_password);
-                break;
-
-            case MODE_FORGET_PASSWORD:
-                setTitle(R.string.ty_login_forget_keyword);
-                break;
-
-            case MODE_REGISTER:
-                setTitle(R.string.ty_login_register);
-                break;
-        }
+//        switch (mMode) {
+//            case MODE_CHANGE_PASSWORD:
+//                setTitle(R.string.ty_login_modify_password);
+//                break;
+//
+//            case MODE_FORGET_PASSWORD:
+//                setTitle(R.string.ty_login_forget_keyword);
+//                break;
+//
+//            case MODE_REGISTER:
+//                setTitle(R.string.ty_login_register);
+//                break;
+//        }
         setDisplayHomeAsUpEnabled();
     }
 

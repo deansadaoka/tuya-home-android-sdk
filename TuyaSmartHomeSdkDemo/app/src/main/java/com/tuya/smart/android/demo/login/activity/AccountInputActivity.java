@@ -98,15 +98,15 @@ public class AccountInputActivity extends BaseActivity implements TextWatcher, I
     }
 
     private void initTitle() {
-        switch (mMode) {
-            case MODE_REGISTER:
-                setTitle(R.string.ty_login_register);
-                break;
-
-            case MODE_PASSWORD_FOUND:
-                setTitle(R.string.ty_login_forget_keyword_find);
-                break;
-        }
+//        switch (mMode) {
+//            case MODE_REGISTER:
+//                setTitle(R.string.ty_login_register);
+//                break;
+//
+//            case MODE_PASSWORD_FOUND:
+//                setTitle(R.string.ty_login_forget_keyword_find);
+//                break;
+//        }
         setDisplayHomeAsUpEnabled();
     }
 

@@ -1,5 +1,6 @@
 package com.tuya.smart.android.demo.base.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.tuya.smart.android.common.utils.NetworkUtil;
 import com.tuya.smart.android.demo.R;
 import com.tuya.smart.android.demo.base.presenter.SceneListPresenter;
@@ -30,9 +34,9 @@ import static com.tuya.smart.android.demo.base.presenter.SceneListPresenter.SMAR
 /**
  * create by nielev on 2019-10-28
  */
-public class SceneFragment extends BaseFragment implements ISceneListFragmentView, View.OnClickListener {
+public class HistoryFragment extends BaseFragment implements ISceneListFragmentView, View.OnClickListener {
 
-    private volatile static SceneFragment mSceneFragment;
+    private volatile static HistoryFragment mSceneFragment;
     private View mContentView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SceneListPresenter mPresenter;
@@ -44,11 +48,13 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     private RecyclerView mRcv_scene_list;
     private RecyclerView mRcv_auto_list;
 
+    private GraphView graph;
+
     public static Fragment newInstance() {
         if (mSceneFragment == null) {
-            synchronized (SceneFragment.class) {
+            synchronized (HistoryFragment.class) {
                 if (mSceneFragment == null) {
-                    mSceneFragment = new SceneFragment();
+                    mSceneFragment = new HistoryFragment();
                 }
             }
         }
@@ -58,20 +64,21 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_scene_list, container, false);
+        mContentView = inflater.inflate(R.layout.fragment_history, container, false);
         initToolbar(mContentView);
         initMenu();
         initView();
-        initAdapter();
+        //initAdapter();
         initSwipeRefreshLayout();
+        initGraph();
         return mContentView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initPresenter();
-        mPresenter.getSceneList();
+        //initPresenter();
+        //mPresenter.getSceneList();
     }
 
     private void initPresenter() {
@@ -80,15 +87,11 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
 
     private void initMenu() {
         //setTitle(getString(R.string.home_scene));
-        setMenu(R.menu.toolbar_add_smart, new Toolbar.OnMenuItemClickListener() {
+        setMenu(R.menu.toolbar_system_menu, new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.action_add_scene:
-                        mPresenter.addScene();
-                        break;
-                    case R.id.action_add_auto:
-                        mPresenter.addAuto();
+                    case R.id.action_switch_system:
                         break;
                         default:break;
                 }
@@ -101,12 +104,12 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     private void initView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) mContentView.findViewById(R.id.swipe_container);
         mEmptyView = mContentView.findViewById(R.id.list_background_tip);
-        mContentView.findViewById(R.id.tv_add_scene).setOnClickListener(this);
-        mContentView.findViewById(R.id.tv_add_auto).setOnClickListener(this);
-        mTv_scene = mContentView.findViewById(R.id.tv_scene);
-        mTv_automation = mContentView.findViewById(R.id.tv_automation);
-        mRcv_scene_list = mContentView.findViewById(R.id.rcv_scene_list);
-        mRcv_auto_list = mContentView.findViewById(R.id.rcv_auto_list);
+//        mContentView.findViewById(R.id.tv_add_scene).setOnClickListener(this);
+//        mContentView.findViewById(R.id.tv_add_auto).setOnClickListener(this);
+//        mTv_scene = mContentView.findViewById(R.id.tv_scene);
+//        mTv_automation = mContentView.findViewById(R.id.tv_automation);
+//        mRcv_scene_list = mContentView.findViewById(R.id.rcv_scene_list);
+//        mRcv_auto_list = mContentView.findViewById(R.id.rcv_auto_list);
     }
 
     private void initAdapter() {
@@ -192,5 +195,27 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
                 break;
                 default:break;
         }
+    }
+
+    private void initGraph() {
+        graph = (GraphView) mContentView.findViewById(R.id.history_graph);
+
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLACK);
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLACK);
+        graph.getGridLabelRenderer().reloadStyles();
+
+        try {
+            LineGraphSeries<DataPoint> series = new LineGraphSeries < > (new DataPoint[] {
+                    new DataPoint(0, 1),
+                    new DataPoint(1, 2),
+                    new DataPoint(2, 5),
+                    new DataPoint(3, 5),
+                    new DataPoint(4, 2)
+            });
+
+            graph.addSeries(series);
+        } catch (IllegalArgumentException e) {}
     }
 }

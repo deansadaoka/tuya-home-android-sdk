@@ -744,4 +744,10 @@
     <string name="login_qrlogin_pad_info">Need to log in with your phone</string>
     <string name="login_qrcode">QR Code Login</string>
 
+    <string name="home_history_tab" translatable="false">History</string>
+    <string name="home_live_tab" translatable="false">Live</string>
+    <string name="home_more_tab" translatable="false">More</string>
+
+    <string name="button_export_csv" translatable="false"><font size="20">Export Data</font>\n\<font size="30">*.CSV</font>\n\<font size="14">file format</font></string>
+
 </resources>

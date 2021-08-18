@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:background="?attr/status_bg_color"
-        android:gravity="center_vertical"
+        android:gravity="center|bottom"
         android:minHeight="?attr/actionBarSize"
         android:paddingBottom="0dp"
         app:contentInsetLeft="0dp"
@@ -20,6 +20,14 @@
         android:paddingRight="2dp"
         android:paddingTop="0dp"
         app:titleMarginTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ted_logo_red"
+            android:layout_gravity="center|top"/>
 
     </androidx.appcompat.widget.Toolbar>
 

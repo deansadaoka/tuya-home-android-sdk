@@ -97,6 +97,7 @@ public class BaseActivity extends AppCompatActivity {
                         R.attr.status_font_color});
                 int titleColor = a.getInt(0, Color.WHITE);
                 mToolBar.setTitleTextColor(titleColor);
+                mToolBar.setBackgroundColor(Color.WHITE);
             }
         }
     }
@@ -167,11 +168,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void setDisplayHomeAsUpEnabled() {
-        setDisplayHomeAsUpEnabled(R.drawable.tysmart_back_white, null);
+        setDisplayHomeAsUpEnabled(R.drawable.tysmart_back, null);
     }
 
     protected void setDisplayHomeAsUpEnabled(final View.OnClickListener listener) {
-        setDisplayHomeAsUpEnabled(R.drawable.tysmart_back_white, listener);
+        setDisplayHomeAsUpEnabled(R.drawable.tysmart_back, listener);
     }
 
     protected void hideToolBarView() {

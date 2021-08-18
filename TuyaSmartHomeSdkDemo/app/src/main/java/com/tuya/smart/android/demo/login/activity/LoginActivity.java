@@ -1,6 +1,8 @@
 package com.tuya.smart.android.demo.login.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,7 +12,9 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,7 +40,7 @@ import butterknife.Unbinder;
 public class LoginActivity extends BaseActivity implements ILoginView, TextWatcher {
 
     @BindView(R.id.login_submit)
-    public Button mLoginSubmit;
+    public ImageButton mLoginSubmit;
 
     @BindView(R.id.bnt_qrcode_login)
     public Button mQRLogin;
@@ -56,6 +60,12 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextWatch
 
     private boolean passwordOn;
 
+    @BindView(R.id.auto_login_box)
+    public CheckBox autoLoginBox;
+
+    private final String SHARED_PREFERENCES_DATA_FILE = "autologin";
+    private final String SHARED_PREFERENCES_DATA_KEY_AUTO_LOGIN = "auto-login";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +73,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextWatch
         mBind = ButterKnife.bind(this);
         initToolbar();
         initView();
-        initTitle();
+        //initTitle();
         initMenu();
         disableLogin();
         mLoginPresenter = new LoginPresenter(this, this);
@@ -175,6 +185,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextWatch
             }
             hideIMM();
             disableLogin();
+            setAutoLogin();
             ProgressUtil.showLoading(LoginActivity.this, R.string.logining);
             mLoginPresenter.login(userName, mPassword.getText().toString());
         }
@@ -182,6 +193,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextWatch
     @OnClick(R.id.bnt_qrcode_login)
     public void qrCodeLogin(){
         Intent intent = new Intent(this, QRCodeLoginActivity.class);
+        setAutoLogin();
         startActivity(intent);
     }
 
@@ -239,5 +251,18 @@ public class LoginActivity extends BaseActivity implements ILoginView, TextWatch
         super.onDestroy();
         mBind.unbind();
         mLoginPresenter.onDestroy();
+    }
+
+    public void registerClicked(View view) {
+        setAutoLogin();
+        AccountInputActivity.gotoAccountInputActivity(LoginActivity.this, AccountInputActivity.MODE_REGISTER, 0);
+    }
+
+    private void setAutoLogin() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_DATA_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SHARED_PREFERENCES_DATA_KEY_AUTO_LOGIN, autoLoginBox.isChecked() ? "true" : "false");
+        editor.commit();
     }
 }

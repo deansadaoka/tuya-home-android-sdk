@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment;
 import com.tuya.smart.android.demo.R;
 import com.tuya.smart.android.demo.base.app.Constant;
 import com.tuya.smart.android.demo.base.fragment.DeviceListFragment;
+import com.tuya.smart.android.demo.base.fragment.HistoryFragment;
+import com.tuya.smart.android.demo.base.fragment.LiveFragment;
+import com.tuya.smart.android.demo.base.fragment.MoreFragment;
 import com.tuya.smart.android.demo.base.fragment.PersonalCenterFragment;
 import com.tuya.smart.android.demo.base.fragment.SceneFragment;
 import com.tuya.smart.android.demo.base.utils.ActivityUtils;
@@ -37,8 +40,9 @@ public class HomePresenter extends BasePresenter {
     protected Activity mActivity;
 
     public static final int TAB_MY_DEVICE = 0;
-    public static final int TAB_PERSONAL_CENTER = 1;
-    public static final int TAB_SCENE = 2;
+    public static final int TAB_PERSONAL_CENTER = 3;
+    public static final int TAB_SCENE = 1;
+    public static final int TAB_MORE = 2;
 
     protected int mCurrentTab = -1;
 
@@ -106,6 +110,10 @@ public class HomePresenter extends BasePresenter {
         showTab(TAB_SCENE);
     }
 
+    public void showMore() {
+        showTab(TAB_MORE);
+    }
+
     public void gotoAddDevice() {
         ActivityUtils.gotoActivity(mActivity, AddDeviceTypeActivity.class, ActivityUtils.ANIMATE_SLIDE_TOP_FROM_BOTTOM, false);
     }
@@ -123,16 +131,20 @@ public class HomePresenter extends BasePresenter {
     }
 
     public int getFragmentCount() {
-        return 3;
+        return 4;
     }
 
     public Fragment getFragment(int type) {
         if (type == TAB_MY_DEVICE) {
-            return DeviceListFragment.newInstance();
+            //return DeviceListFragment.newInstance();
+            return LiveFragment.newInstance();
         } else if (type == TAB_PERSONAL_CENTER) {
             return PersonalCenterFragment.newInstance();
         } else if (type == TAB_SCENE) {
-            return SceneFragment.newInstance();
+            //return SceneFragment.newInstance();
+            return HistoryFragment.newInstance();
+        } else if (type == TAB_MORE) {
+            return MoreFragment.newInstance();
         }
         return null;
     }
@@ -144,4 +156,6 @@ public class HomePresenter extends BasePresenter {
     public void setCurrentTab(int tab) {
         mCurrentTab = tab;
     }
+
+
 }

@@ -30,9 +30,9 @@ import static com.tuya.smart.android.demo.base.presenter.SceneListPresenter.SMAR
 /**
  * create by nielev on 2019-10-28
  */
-public class SceneFragment extends BaseFragment implements ISceneListFragmentView, View.OnClickListener {
+public class LiveFragment extends BaseFragment implements ISceneListFragmentView, View.OnClickListener {
 
-    private volatile static SceneFragment mSceneFragment;
+    private volatile static LiveFragment mSceneFragment;
     private View mContentView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SceneListPresenter mPresenter;
@@ -44,11 +44,12 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     private RecyclerView mRcv_scene_list;
     private RecyclerView mRcv_auto_list;
 
+
     public static Fragment newInstance() {
         if (mSceneFragment == null) {
-            synchronized (SceneFragment.class) {
+            synchronized (LiveFragment.class) {
                 if (mSceneFragment == null) {
-                    mSceneFragment = new SceneFragment();
+                    mSceneFragment = new LiveFragment();
                 }
             }
         }
@@ -58,11 +59,11 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_scene_list, container, false);
+        mContentView = inflater.inflate(R.layout.fragment_live, container, false);
         initToolbar(mContentView);
         initMenu();
         initView();
-        initAdapter();
+        //initAdapter();
         initSwipeRefreshLayout();
         return mContentView;
     }
@@ -70,8 +71,8 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initPresenter();
-        mPresenter.getSceneList();
+        //initPresenter();
+        //mPresenter.getSceneList();
     }
 
     private void initPresenter() {
@@ -80,15 +81,13 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
 
     private void initMenu() {
         //setTitle(getString(R.string.home_scene));
-        setMenu(R.menu.toolbar_add_smart, new Toolbar.OnMenuItemClickListener() {
+        setMenu(R.menu.toolbar_system_menu, new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.action_add_scene:
-                        mPresenter.addScene();
+                    case R.id.action_switch_system:
                         break;
-                    case R.id.action_add_auto:
-                        mPresenter.addAuto();
+                    case R.id.action_add_system:
                         break;
                         default:break;
                 }
@@ -101,12 +100,12 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
     private void initView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) mContentView.findViewById(R.id.swipe_container);
         mEmptyView = mContentView.findViewById(R.id.list_background_tip);
-        mContentView.findViewById(R.id.tv_add_scene).setOnClickListener(this);
-        mContentView.findViewById(R.id.tv_add_auto).setOnClickListener(this);
-        mTv_scene = mContentView.findViewById(R.id.tv_scene);
-        mTv_automation = mContentView.findViewById(R.id.tv_automation);
-        mRcv_scene_list = mContentView.findViewById(R.id.rcv_scene_list);
-        mRcv_auto_list = mContentView.findViewById(R.id.rcv_auto_list);
+//        mContentView.findViewById(R.id.tv_add_scene).setOnClickListener(this);
+//        mContentView.findViewById(R.id.tv_add_auto).setOnClickListener(this);
+//        mTv_scene = mContentView.findViewById(R.id.tv_scene);
+//        mTv_automation = mContentView.findViewById(R.id.tv_automation);
+//        mRcv_scene_list = mContentView.findViewById(R.id.rcv_scene_list);
+//        mRcv_auto_list = mContentView.findViewById(R.id.rcv_auto_list);
     }
 
     private void initAdapter() {
@@ -193,4 +192,5 @@ public class SceneFragment extends BaseFragment implements ISceneListFragmentVie
                 default:break;
         }
     }
+
 }

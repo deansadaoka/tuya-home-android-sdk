@@ -66,10 +66,11 @@
     </style>
 
     <style name="toolbar_action_text" parent="@android:style/Theme.Holo.Light">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/baloo</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="titleTextAppearance">@style/myActionTitleTextAppearance</item>
     </style>
@@ -217,15 +218,16 @@
     <!--横线-->
     <style name="line_normal">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/line_dip</item>
-        <item name="android:background">@color/line</item>
+<!--        <item name="android:layout_height">@dimen/line_dip</item>-->
+        <item name="android:layout_height">@dimen/mg_8</item>
+        <item name="android:background">@color/TED_Red</item>
     </style>
 
     <style name="myActionTitleTextAppearance"
            parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
         <item name="android:textSize">@dimen/tuya_title_size</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textAllCaps">false</item>
     </style>
     <!-- 文本输入框 -->
@@ -246,10 +248,15 @@
     <style name="Default_Public_Theme" parent="AppTheme">
         <!-- 菜单标题文字颜色 -->
         <item name="status_font_color">@color/app_bg_color</item>
-        <item name="status_bg_color">@color/navbar_font_color</item>
-        <item name="status_system_bg_color">@color/status_system_bg_color</item>
-        <item name="navbar_font_color">@color/navbar_font_color</item>
-        <item name="navbar_bg_color">@color/navbar_font_color</item>
+<!--        <item name="status_bg_color">@color/navbar_font_color</item>-->
+<!--        <item name="status_system_bg_color">@color/status_system_bg_color</item>-->
+<!--        <item name="navbar_font_color">@color/navbar_font_color</item>-->
+<!--        <item name="navbar_bg_color">@color/navbar_font_color</item>-->
+        <item name="status_bg_color">@color/black</item>
+        <item name="status_system_bg_color">@color/black</item>
+        <item name="navbar_font_color">@color/black</item>
+        <item name="navbar_bg_color">@color/black</item>
+
         <item name="app_bg_color">@color/app_bg_color</item>
         <item name="fragment_bg_color">@color/app_bg_color</item>
 
@@ -281,8 +288,10 @@
     </style>
     <style name="ToolrTheme" parent="Default_Public_Theme">
         <item name="status_font_color">@color/white</item>
-        <item name="status_bg_color">@color/color_ff5800</item>
-        <item name="app_bg_color">@color/color_ff5800</item>
+<!--        <item name="status_bg_color">@color/color_ff5800</item>-->
+<!--        <item name="app_bg_color">@color/color_ff5800</item>-->
+        <item name="status_bg_color">@color/black</item>
+        <item name="app_bg_color">@color/black</item>
     </style>
     <style name="Splash.Theme" parent="Default_Public_Theme">
         <item name="android:windowBackground">@drawable/ty_pre</item>
@@ -300,6 +309,12 @@
     </style>
 
     <color name="color_ff5800">#ff5800</color>
+
+    <style name="menu_text_style" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Menu">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 
 
 </resources>

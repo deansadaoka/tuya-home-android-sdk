@@ -39,7 +39,7 @@ public class PersonalCenterFragment extends BaseFragment implements IPersonalCen
         mContentView = inflater.inflate(R.layout.fragment_personal_center, container, false);
         initToolbar(mContentView);
         initView();
-        initMenu();
+        //initMenu();
         initPresenter();
         return mContentView;
     }
