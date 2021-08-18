@@ -85,9 +85,10 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.action_switch_system:
-                        break;
                     case R.id.action_add_system:
+
+                        break;
+                    case R.id.action_switch_system:
                         break;
                         default:break;
                 }
