@@ -66,8 +66,8 @@
     </style>
 
     <style name="toolbar_action_text" parent="@android:style/Theme.Holo.Light">
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/baloo</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/insignia</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/black</item>
@@ -247,7 +247,7 @@
 
     <style name="Default_Public_Theme" parent="AppTheme">
         <!-- 菜单标题文字颜色 -->
-        <item name="status_font_color">@color/app_bg_color</item>
+        <item name="status_font_color">@color/black</item>
 <!--        <item name="status_bg_color">@color/navbar_font_color</item>-->
 <!--        <item name="status_system_bg_color">@color/status_system_bg_color</item>-->
 <!--        <item name="navbar_font_color">@color/navbar_font_color</item>-->

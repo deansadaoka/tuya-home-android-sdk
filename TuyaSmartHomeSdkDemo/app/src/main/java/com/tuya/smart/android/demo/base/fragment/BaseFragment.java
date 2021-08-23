@@ -1,10 +1,13 @@
 package com.tuya.smart.android.demo.base.fragment;
 
+import android.content.ClipData;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.MenuItem;
 import android.view.View;
 
 import com.tuya.smart.android.demo.R;

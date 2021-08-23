@@ -40,8 +40,8 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     private ImageView mIvMore;
 
     public ViewPager mFragmentContainer;
-    private int mFuncBarTextNormalColor = Color.BLACK;
-    private int mFuncBarTextSelectColor = Color.RED;
+    private int mFuncBarTextNormalColor = Color.WHITE;
+    private int mFuncBarTextSelectColor = Color.WHITE;
     private HomeFragmentAdapter mHomeFragmentAdapter;
     private TextView mTvHomeScene;
     private ImageView mIvHomeScene;
