@@ -287,7 +287,7 @@
         <item name="is_scene_support">true</item>
     </style>
     <style name="ToolrTheme" parent="Default_Public_Theme">
-        <item name="status_font_color">@color/white</item>
+        <item name="status_font_color">@color/black</item>
 <!--        <item name="status_bg_color">@color/color_ff5800</item>-->
 <!--        <item name="app_bg_color">@color/color_ff5800</item>-->
         <item name="status_bg_color">@color/black</item>

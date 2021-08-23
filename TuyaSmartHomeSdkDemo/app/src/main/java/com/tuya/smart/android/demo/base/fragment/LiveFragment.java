@@ -1,67 +1,65 @@
 package com.tuya.smart.android.demo.base.fragment;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tuya.smart.android.common.utils.NetworkUtil;
 import com.tuya.smart.android.demo.R;
+import com.tuya.smart.android.demo.base.activity.BaseActivity;
 import com.tuya.smart.android.demo.base.presenter.DeviceListFragmentPresenter;
-import com.tuya.smart.android.demo.base.presenter.SceneListPresenter;
-import com.tuya.smart.android.demo.scene.adapter.SmartAdapter;
-import com.tuya.smart.android.demo.scene.view.ISceneListFragmentView;
-import com.tuya.smart.home.sdk.bean.scene.SceneBean;
+import com.tuya.smart.android.demo.base.presenter.LiveFragmentPresenter;
+import com.tuya.smart.android.demo.base.utils.AnimationUtil;
+import com.tuya.smart.android.demo.base.utils.ToastUtil;
+import com.tuya.smart.android.demo.base.view.IDeviceListFragmentView;
+import com.tuya.smart.android.demo.device.CommonDeviceAdapter;
+import com.tuya.smart.android.demo.family.view.SwitchFamilyText;
+import com.tuya.smart.sdk.bean.DeviceBean;
 
 import java.util.List;
 
-import static com.tuya.smart.android.demo.base.presenter.SceneListPresenter.SMART_TYPE_AUTOMATION;
-import static com.tuya.smart.android.demo.base.presenter.SceneListPresenter.SMART_TYPE_SCENE;
-
 
 /**
- * create by nielev on 2019-10-28
+ * Created by letian on 16/7/18.
  */
-public class LiveFragment extends BaseFragment implements ISceneListFragmentView, View.OnClickListener {
+public class LiveFragment extends BaseFragment implements IDeviceListFragmentView {
 
-    private volatile static LiveFragment mSceneFragment;
+    private static final String TAG = "LiveFragment";
+    private volatile static LiveFragment mDeviceListFragment;
     private View mContentView;
+    private LiveFragmentPresenter mLiveFragmentPresenter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private SceneListPresenter mPresenter;
-    private View mEmptyView;
-    private SmartAdapter mSceneAdapter;
-    private SmartAdapter mAutoAdapter;
-    private View mTv_scene;
-    private View mTv_automation;
-    private RecyclerView mRcv_scene_list;
-    private RecyclerView mRcv_auto_list;
-
-    private DeviceListFragmentPresenter mDeviceListFragmentPresenter;
-
+    private CommonDeviceAdapter mCommonDeviceAdapter;
+    private ListView mDevListView;
+    private TextView mNetWorkTip;
+    private View mRlView;
+    private View mAddDevView;
+    private View mBackgroundView;
+    private View mShortcutView;
 
     public static Fragment newInstance() {
-        if (mSceneFragment == null) {
+        if (mDeviceListFragment == null) {
             synchronized (LiveFragment.class) {
-                if (mSceneFragment == null) {
-                    mSceneFragment = new LiveFragment();
+                if (mDeviceListFragment == null) {
+                    mDeviceListFragment = new LiveFragment();
                 }
             }
         }
-        return mSceneFragment;
+        return mDeviceListFragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContentView = inflater.inflate(R.layout.fragment_live, container, false);
         initToolbar(mContentView);
         initMenu();
@@ -72,67 +70,11 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mDeviceListFragmentPresenter.getDataFromServer();
-    }
-
-    private void initPresenter() {
-        mPresenter = new SceneListPresenter(getActivity(), this);
-    }
-
-    private void initMenu() {
-        //setTitle(getString(R.string.home_scene));
-        setMenu(R.menu.toolbar_system_menu, new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.action_add_system:
-                        mDeviceListFragmentPresenter.addDevice();
-                        break;
-                    case R.id.action_switch_system:
-                        break;
-                        default:break;
-                }
-                return false;
-            }
-        });
-    }
-
-
-    private void initView() {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) mContentView.findViewById(R.id.swipe_container);
-        mEmptyView = mContentView.findViewById(R.id.list_background_tip);
-//        mContentView.findViewById(R.id.tv_add_scene).setOnClickListener(this);
-//        mContentView.findViewById(R.id.tv_add_auto).setOnClickListener(this);
-//        mTv_scene = mContentView.findViewById(R.id.tv_scene);
-//        mTv_automation = mContentView.findViewById(R.id.tv_automation);
-//        mRcv_scene_list = mContentView.findViewById(R.id.rcv_scene_list);
-//        mRcv_auto_list = mContentView.findViewById(R.id.rcv_auto_list);
-    }
-
-    private void initAdapter() {
-        mSceneAdapter = new SmartAdapter(getActivity(), SMART_TYPE_SCENE);
-        mAutoAdapter = new SmartAdapter(getActivity(), SMART_TYPE_AUTOMATION);
-        mRcv_scene_list.setAdapter(mSceneAdapter);
-        mRcv_auto_list.setAdapter(mAutoAdapter);
-        mRcv_scene_list.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRcv_auto_list.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mSceneAdapter.setOnExecuteListener(new SmartAdapter.OnExecuteListener() {
-            @Override
-            public void onExecute(SceneBean bean) {
-                mPresenter.execute(bean);
-            }
-
-        });
-        mAutoAdapter.setOnSwitchListener(new SmartAdapter.OnSwitchListener() {
-
-
-            @Override
-            public void onSwitchAutomation(SceneBean bean) {
-                mPresenter.switchAutomation(bean);
-            }
-        });
+        initPresenter();
+//        L.d(TAG,"tuyaTime: "+ TuyaUtil.formatDate(System.currentTimeMillis(),"yyyy-mm-dd hh:mm:ss"));
+        mLiveFragmentPresenter.getDataFromServer();
     }
 
     private void initSwipeRefreshLayout() {
@@ -144,7 +86,7 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
             @Override
             public void onRefresh() {
                 if (NetworkUtil.isNetworkAvailable(getContext())) {
-                    mPresenter.getSceneList();
+                    mLiveFragmentPresenter.getDataFromServer();
                 } else {
                     loadFinish();
                 }
@@ -152,23 +94,65 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
         });
     }
 
+    private void initAdapter() {
+        mCommonDeviceAdapter = new CommonDeviceAdapter(getActivity());
+        mDevListView.setAdapter(mCommonDeviceAdapter);
+        mDevListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return mLiveFragmentPresenter.onDeviceLongClick((DeviceBean) parent.getAdapter().getItem(position));
+            }
+        });
+        mDevListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mLiveFragmentPresenter.onDeviceClick((DeviceBean) parent.getAdapter().getItem(position));
+            }
+        });
+    }
 
     @Override
-    public void showSceneListView(List<SceneBean> scenes, List<SceneBean> autos) {
-        mEmptyView.setVisibility(View.GONE);
-        if(scenes.isEmpty()){
-            mTv_scene.setVisibility(View.GONE);
-            mTv_automation.setVisibility(View.VISIBLE);
-        } else if(autos.isEmpty()){
-            mTv_scene.setVisibility(View.VISIBLE);
-            mTv_automation.setVisibility(View.GONE);
-        } else {
-            mTv_scene.setVisibility(View.VISIBLE);
-            mTv_automation.setVisibility(View.VISIBLE);
-        }
-        mSceneAdapter.setData(scenes);
-        mAutoAdapter.setData(autos);
+    public void updateDeviceData(List<DeviceBean> myDevices) {
+//        if (mCommonDeviceAdapter != null) {
+//            mCommonDeviceAdapter.setData(myDevices);
+//        }
+    }
 
+    @Override
+    public void loadStart() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    protected void initView() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mContentView.findViewById(R.id.swipe_container);
+        mNetWorkTip = (TextView) mContentView.findViewById(R.id.network_tip);
+        mDevListView = (ListView) mContentView.findViewById(R.id.lv_device_list);
+        mShortcutView = mContentView.findViewById(R.id.tv_shortcut);
+        mRlView = mContentView.findViewById(R.id.rl_list);
+        mAddDevView = mContentView.findViewById(R.id.tv_empty_func);
+        mBackgroundView = mContentView.findViewById(R.id.list_background_tip);
+
+    }
+
+    protected void initPresenter() {
+        mLiveFragmentPresenter = new LiveFragmentPresenter(this, this);
+    }
+
+    protected void initMenu() {
+        setMenu(R.menu.toolbar_system_menu, new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.action_add_system:
+                        mLiveFragmentPresenter.addDevice();
+                        break;
+                    case R.id.action_switch_system:
+                        break;
+                    default:break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -176,24 +160,40 @@ public class LiveFragment extends BaseFragment implements ISceneListFragmentView
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void showEmptyView() {
-        mEmptyView.setVisibility(View.VISIBLE);
-        mTv_scene.setVisibility(View.GONE);
-        mTv_automation.setVisibility(View.GONE);
+    public void showNetWorkTipView(int tipRes) {
+        mNetWorkTip.setText(tipRes);
+        if (mNetWorkTip.getVisibility() != View.VISIBLE) {
+            AnimationUtil.translateView(mRlView, 0, 0, -mNetWorkTip.getHeight(), 0, 300, false, null);
+            mNetWorkTip.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideNetWorkTipView() {
+        if (mNetWorkTip.getVisibility() != View.GONE) {
+            AnimationUtil.translateView(mRlView, 0, 0, mNetWorkTip.getHeight(), 0, 300, false, null);
+            mNetWorkTip.setVisibility(View.GONE);
+        }
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_add_scene:
-                mPresenter.addScene();
-                break;
-            case R.id.tv_add_auto:
-                mPresenter.addAuto();
-                break;
-                default:break;
-        }
+    public void showBackgroundView() {
+
+    }
+
+    @Override
+    public void hideBackgroundView() {
+
+    }
+
+    @Override
+    public void gotoCreateHome() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mLiveFragmentPresenter.onDestroy();
     }
 
 }
